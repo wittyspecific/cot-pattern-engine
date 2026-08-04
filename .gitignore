@@ -1,0 +1,17 @@
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+.streamlit/secrets.toml
+data/
+cache/
+*.parquet
+*.pkl
+*.pickle
+*.sqlite
+*.db
+*.zip
+*.log

@@ -1,0 +1,335 @@
+categories:
+  Aktienindizes:
+    icon: "📈"
+    order: 1
+  Edelmetalle:
+    icon: "🥇"
+    order: 2
+  Energie:
+    icon: "⚡"
+    order: 3
+  Anleihen:
+    icon: "🏦"
+    order: 4
+  Währungen:
+    icon: "💱"
+    order: 5
+  Agrarrohstoffe:
+    icon: "🌾"
+    order: 6
+  Soft Commodities:
+    icon: "☕"
+    order: 7
+  Vieh:
+    icon: "🐄"
+    order: 8
+
+assets:
+  Gold:
+    category: Edelmetalle
+    exchange: COMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: GOLD - COMMODITY EXCHANGE INC.
+    cftc_code: "088691"
+    price_symbol: GC=F
+  Silber:
+    category: Edelmetalle
+    exchange: COMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: SILVER - COMMODITY EXCHANGE INC.
+    cftc_code: "084691"
+    price_symbol: SI=F
+  Kupfer:
+    category: Edelmetalle
+    exchange: COMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: COPPER-GRADE #1 - COMMODITY EXCHANGE INC.
+    cftc_code: "085692"
+    price_symbol: HG=F
+  Platin:
+    category: Edelmetalle
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: PLATINUM - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "076651"
+    price_symbol: PL=F
+  Palladium:
+    category: Edelmetalle
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: PALLADIUM - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "075651"
+    price_symbol: PA=F
+
+  Rohöl WTI:
+    category: Energie
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: CRUDE OIL, LIGHT SWEET - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "067651"
+    price_symbol: CL=F
+  Rohöl Brent:
+    category: Energie
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "06765T"
+    price_symbol: BZ=F
+  Erdgas:
+    category: Energie
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: NATURAL GAS - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "023651"
+    price_symbol: NG=F
+  Heizöl / ULSD:
+    category: Energie
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: NY HARBOR ULSD - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "022651"
+    price_symbol: HO=F
+  RBOB Benzin:
+    category: Energie
+    exchange: NYMEX
+    cftc_report: legacy_futures_only
+    cftc_market_name: GASOLINE BLENDSTOCK (RBOB) - NEW YORK MERCANTILE EXCHANGE
+    cftc_code: "111659"
+    price_symbol: RB=F
+
+  S&P 500 E-mini:
+    category: Aktienindizes
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: E-MINI S&P 500 STOCK INDEX - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "13874A"
+    price_symbol: ES=F
+  Nasdaq 100 E-mini:
+    category: Aktienindizes
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "209742"
+    price_symbol: NQ=F
+  Dow Jones E-mini:
+    category: Aktienindizes
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: DJIA x $5 - CHICAGO BOARD OF TRADE
+    cftc_code: "12460P"
+    price_symbol: YM=F
+  Russell 2000 E-mini:
+    category: Aktienindizes
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: RUSSELL 2000 MINI INDEX FUTURE - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "239742"
+    price_symbol: RTY=F
+
+  US Treasury 2 Jahre:
+    category: Anleihen
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: 2-YEAR U.S. TREASURY NOTES - CHICAGO BOARD OF TRADE
+    cftc_code: "042601"
+    price_symbol: ZT=F
+  US Treasury 5 Jahre:
+    category: Anleihen
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: 5-YEAR U.S. TREASURY NOTES - CHICAGO BOARD OF TRADE
+    cftc_code: "044601"
+    price_symbol: ZF=F
+  US Treasury 10 Jahre:
+    category: Anleihen
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: 10-YEAR U.S. TREASURY NOTES - CHICAGO BOARD OF TRADE
+    cftc_code: "043602"
+    price_symbol: ZN=F
+  US Treasury Bond 30 Jahre:
+    category: Anleihen
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: U.S. TREASURY BONDS - CHICAGO BOARD OF TRADE
+    cftc_code: "020601"
+    price_symbol: ZB=F
+  Ultra US Treasury Bond:
+    category: Anleihen
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: ULTRA U.S. TREASURY BONDS - CHICAGO BOARD OF TRADE
+    cftc_code: "020604"
+    price_symbol: UB=F
+
+  Euro FX:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: EURO FX - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "099741"
+    price_symbol: 6E=F
+  Britisches Pfund:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "096742"
+    price_symbol: 6B=F
+  Japanischer Yen:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "097741"
+    price_symbol: 6J=F
+  Schweizer Franken:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: SWISS FRANC - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "092741"
+    price_symbol: 6S=F
+  Kanadischer Dollar:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "090741"
+    price_symbol: 6C=F
+  Australischer Dollar:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "232741"
+    price_symbol: 6A=F
+  Neuseeland-Dollar:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: NEW ZEALAND DOLLAR - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "112741"
+    price_symbol: 6N=F
+  Mexikanischer Peso:
+    category: Währungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "095741"
+    price_symbol: 6M=F
+
+  Mais:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: CORN - CHICAGO BOARD OF TRADE
+    cftc_code: "002602"
+    price_symbol: ZC=F
+  Weizen Chicago:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: WHEAT-SRW - CHICAGO BOARD OF TRADE
+    cftc_code: "001602"
+    price_symbol: ZW=F
+  Weizen Kansas City:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: WHEAT-HRW - CHICAGO BOARD OF TRADE
+    cftc_code: "001612"
+    price_symbol: KE=F
+  Sojabohnen:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: SOYBEANS - CHICAGO BOARD OF TRADE
+    cftc_code: "005602"
+    price_symbol: ZS=F
+  Sojabohnenöl:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: SOYBEAN OIL - CHICAGO BOARD OF TRADE
+    cftc_code: "007601"
+    price_symbol: ZL=F
+  Sojaschrot:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: SOYBEAN MEAL - CHICAGO BOARD OF TRADE
+    cftc_code: "026603"
+    price_symbol: ZM=F
+  Hafer:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: OATS - CHICAGO BOARD OF TRADE
+    cftc_code: "004603"
+    price_symbol: ZO=F
+  Rough Rice:
+    category: Agrarrohstoffe
+    exchange: CBOT
+    cftc_report: legacy_futures_only
+    cftc_market_name: ROUGH RICE - CHICAGO BOARD OF TRADE
+    cftc_code: "039601"
+    price_symbol: ZR=F
+
+  Kaffee:
+    category: Soft Commodities
+    exchange: ICE US
+    cftc_report: legacy_futures_only
+    cftc_market_name: COFFEE C - ICE FUTURES U.S.
+    cftc_code: "083731"
+    price_symbol: KC=F
+  Kakao:
+    category: Soft Commodities
+    exchange: ICE US
+    cftc_report: legacy_futures_only
+    cftc_market_name: COCOA - ICE FUTURES U.S.
+    cftc_code: "073732"
+    price_symbol: CC=F
+  Zucker Nr. 11:
+    category: Soft Commodities
+    exchange: ICE US
+    cftc_report: legacy_futures_only
+    cftc_market_name: SUGAR NO. 11 - ICE FUTURES U.S.
+    cftc_code: "080732"
+    price_symbol: SB=F
+  Baumwolle Nr. 2:
+    category: Soft Commodities
+    exchange: ICE US
+    cftc_report: legacy_futures_only
+    cftc_market_name: COTTON NO. 2 - ICE FUTURES U.S.
+    cftc_code: "033661"
+    price_symbol: CT=F
+  Orangensaft:
+    category: Soft Commodities
+    exchange: ICE US
+    cftc_report: legacy_futures_only
+    cftc_market_name: FROZEN CONCENTRATED ORANGE JUICE - ICE FUTURES U.S.
+    cftc_code: "040701"
+    price_symbol: OJ=F
+
+  Live Cattle:
+    category: Vieh
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: LIVE CATTLE - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "057642"
+    price_symbol: LE=F
+  Feeder Cattle:
+    category: Vieh
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: FEEDER CATTLE - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "061641"
+    price_symbol: GF=F
+  Lean Hogs:
+    category: Vieh
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: LEAN HOGS - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "054642"
+    price_symbol: HE=F
