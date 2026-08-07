@@ -11,18 +11,21 @@ categories:
   Anleihen:
     icon: "🏦"
     order: 4
+  Kryptowährungen:
+    icon: "🪙"
+    order: 5
   Währungen:
     icon: "💱"
-    order: 5
+    order: 6
   Agrarrohstoffe:
     icon: "🌾"
-    order: 6
+    order: 7
   Soft Commodities:
     icon: "☕"
-    order: 7
+    order: 8
   Vieh:
     icon: "🐄"
-    order: 8
+    order: 9
 
 assets:
   Gold:
@@ -162,6 +165,29 @@ assets:
     cftc_code: "020604"
     price_symbol: UB=F
 
+
+  Bitcoin:
+    category: Kryptowährungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: BITCOIN - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "133741"
+    price_symbol: BTC=F
+  Ethereum:
+    category: Kryptowährungen
+    exchange: CME
+    cftc_report: legacy_futures_only
+    cftc_market_name: ETHER CASH SETTLED - CHICAGO MERCANTILE EXCHANGE
+    cftc_code: "146021"
+    price_symbol: ETH=F
+
+  US Dollar Index:
+    category: Währungen
+    exchange: ICE US
+    cftc_report: legacy_futures_only
+    cftc_market_name: U.S. DOLLAR INDEX - ICE FUTURES U.S.
+    cftc_code: "098662"
+    price_symbol: DX-Y.NYB
   Euro FX:
     category: Währungen
     exchange: CME

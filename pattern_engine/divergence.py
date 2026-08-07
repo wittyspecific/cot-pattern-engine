@@ -34,59 +34,83 @@ def _classify_horizon(
     min_flow_z: float,
     min_dominance: float,
 ) -> dict[str, object]:
-    """Classify only active, dominant position building against price direction.
+    """Classify price, long flow and short flow separately.
 
-    A divergence is intentionally *not* generated from long liquidation or short
-    covering alone. This prevents profit-taking and position reduction from being
-    interpreted as fresh directional conviction.
+    A clean active divergence still requires an unusual and sufficiently dominant
+    new position build. Mixed cases are retained as informative states instead of
+    being collapsed into "no divergence".
     """
     long_dominance = _dominance(long_change, short_change) if long_change > 0 else 0.0
     short_dominance = _dominance(short_change, long_change) if short_change > 0 else 0.0
 
-    long_building = (
-        long_change > 0
-        and np.isfinite(long_z)
-        and long_z >= min_flow_z
-        and long_dominance >= min_dominance
-    )
-    short_building = (
-        short_change > 0
-        and np.isfinite(short_z)
-        and short_z >= min_flow_z
-        and short_dominance >= min_dominance
-    )
+    long_active = long_change > 0 and np.isfinite(long_z) and long_z >= min_flow_z
+    short_active = short_change > 0 and np.isfinite(short_z) and short_z >= min_flow_z
+    long_building = long_active and long_dominance >= min_dominance
+    short_building = short_active and short_dominance >= min_dominance
 
+    price_down = price_change <= -min_price_move
+    price_up = price_change >= min_price_move
     signal = "none"
-    explanation = "Keine aktive, dominante Positionseröffnung gegen die Preisrichtung."
+    state = "neutral"
     score = 0.0
     dominant_flow = "none"
     dominance = max(long_dominance, short_dominance)
 
-    if price_change <= -min_price_move and long_building:
-        signal = "bullish"
+    if long_change > 0 and short_change > 0:
+        dominant_flow = "long_building" if long_change > short_change else "short_building"
+    elif long_change > 0:
         dominant_flow = "long_building"
-        dominance = long_dominance
-        explanation = (
-            "Der Preis fällt, während die Non-Commercials dominant neue Long-Positionen aufbauen. "
-            "Reine Short-Eindeckungen werden nicht als Divergenz gewertet."
-        )
-        score = 2.0 + max(0.0, long_z - min_flow_z) + max(0.0, dominance - min_dominance) * 4
-    elif price_change >= min_price_move and short_building:
-        signal = "bearish"
+    elif short_change > 0:
         dominant_flow = "short_building"
-        dominance = short_dominance
+    elif long_change < 0 and short_change < 0:
+        dominant_flow = "position_reduction"
+    elif long_change < 0:
+        dominant_flow = "long_liquidation"
+    elif short_change < 0:
+        dominant_flow = "short_covering"
+
+    if price_down and long_building and not short_active:
+        signal, state = "bullish", "bullish_divergence"
+        explanation = "Der Preis fällt, während dominant neue Long-Positionen aufgebaut werden."
+        score = 2.0 + max(0.0, long_z - min_flow_z) + max(0.0, long_dominance - min_dominance) * 4
+    elif price_up and short_building and not long_active:
+        signal, state = "bearish", "bearish_divergence"
+        explanation = "Der Preis steigt, während dominant neue Short-Positionen aufgebaut werden."
+        score = 2.0 + max(0.0, short_z - min_flow_z) + max(0.0, short_dominance - min_dominance) * 4
+    elif price_down and long_change > 0 and short_change > 0:
+        state = "bullish_accumulation_mixed"
         explanation = (
-            "Der Preis steigt, während die Non-Commercials dominant neue Short-Positionen aufbauen. "
-            "Reine Long-Liquidationen werden nicht als Divergenz gewertet."
+            "Der Preis fällt und Long-Positionen werden aufgebaut. Gleichzeitig werden auch Shorts aufgebaut. "
+            "Dies ist eine gemischte Akkumulationsphase: bullische Akkumulation ist vorhanden, "
+            "der Abwärtstrend wird durch Short-Aufbau jedoch weiterhin bestätigt."
         )
-        score = 2.0 + max(0.0, short_z - min_flow_z) + max(0.0, dominance - min_dominance) * 4
-    elif price_change <= -min_price_move and long_change > 0 and long_z >= min_flow_z:
-        explanation = f"Long-Aufbau vorhanden, aber mit {long_dominance:.0%} nicht dominant genug (Minimum {min_dominance:.0%})."
-    elif price_change >= min_price_move and short_change > 0 and short_z >= min_flow_z:
-        explanation = f"Short-Aufbau vorhanden, aber mit {short_dominance:.0%} nicht dominant genug (Minimum {min_dominance:.0%})."
+    elif price_up and short_change > 0 and long_change > 0:
+        state = "bearish_distribution_mixed"
+        explanation = (
+            "Der Preis steigt und Short-Positionen werden aufgebaut. Gleichzeitig werden auch Longs aufgebaut. "
+            "Dies ist eine gemischte Distributionsphase: bearischer Gegenfluss ist vorhanden, "
+            "der Aufwärtstrend wird durch Long-Aufbau jedoch weiterhin bestätigt."
+        )
+    elif price_down and long_change > 0:
+        state = "bullish_accumulation"
+        explanation = "Der Preis fällt, während Long-Positionen aufgebaut werden: bullische Akkumulation."
+    elif price_up and short_change > 0:
+        state = "bearish_distribution"
+        explanation = "Der Preis steigt, während Short-Positionen aufgebaut werden: bearischer Gegenfluss."
+    elif price_down and short_change > 0:
+        state = "bearish_trend_confirmation"
+        explanation = "Der Preis fällt und neue Shorts werden aufgebaut: bearische Trendbestätigung."
+    elif price_up and long_change > 0:
+        state = "bullish_trend_confirmation"
+        explanation = "Der Preis steigt und neue Longs werden aufgebaut: bullische Trendbestätigung."
+    elif long_change < 0 and short_change < 0:
+        state = "position_reduction"
+        explanation = "Long- und Short-Positionen werden gleichzeitig reduziert."
+    else:
+        explanation = "Kein eindeutiger neuer Positionsaufbau relativ zur Preisrichtung."
 
     if signal == "none":
-        strength = "keine"
+        strength = "Hinweis" if state not in {"neutral", "position_reduction"} else "keine"
     elif score >= 4.0:
         strength = "stark"
     elif score >= 2.8:
@@ -96,7 +120,8 @@ def _classify_horizon(
 
     return {
         "signal": signal,
-        "mode": "active_dominant" if signal != "none" else "none",
+        "state": state,
+        "mode": "active_dominant" if signal != "none" else "matrix",
         "strength": strength,
         "score": score,
         "explanation": explanation,
@@ -107,6 +132,8 @@ def _classify_horizon(
         "components": {
             "long_building": long_building,
             "short_building": short_building,
+            "long_active": long_active,
+            "short_active": short_active,
             "long_liquidation": long_change < 0,
             "short_covering": short_change < 0,
         },

@@ -29,9 +29,19 @@ def test_indices_are_bounded():
     assert ((values >= 0) & (values <= 100)).all().all()
 
 
-def test_index_pattern_returns_current_values_and_matches():
-    result = analyze_cot_index_pattern(_sample(), n_neighbors=20, min_sample=8)
+def test_index_pattern_requires_joint_validation_or_returns_matches():
+    frame = _sample()
+    # The module must always expose the current values. It only produces outcome
+    # statistics when index and absolute-net percentiles confirm the same extremes.
+    result = analyze_cot_index_pattern(frame, n_neighbors=20, min_sample=1)
     assert result.commercial_index is not None
     assert result.retail_index is not None
-    assert result.sample_size >= 8
-    assert not result.matches.empty
+    assert result.commercial_net_percentile is not None
+    assert result.retail_net_percentile is not None
+    if result.available:
+        assert result.commercial_validated
+        assert result.retail_validated
+        assert result.sample_size >= 1
+        assert not result.matches.empty
+    else:
+        assert "bestätigt" in result.reason or "Extremkonstellation" in result.reason
